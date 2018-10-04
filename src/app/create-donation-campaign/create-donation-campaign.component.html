@@ -1,0 +1,99 @@
+<h4 class="mt-4 mb-4"><i class="fa fa-plus-square" aria-hidden="true"></i> Create Donation Campaign</h4>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success" role="alert" *ngIf="donationCampaignCreated">
+      <i class="fa fa-check-circle" aria-hidden="true"></i> Donation campaing with name: {{donationCampaignName}} was successfully created!
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="donationCampaignType" [checked]="donationContractType" (change)="donationContractType = !donationContractType" >
+        <label class="custom-control-label" for="donationCampaignType">Contract type campaign</label>
+      </div>
+    </div>
+  </div>
+    <form [formGroup]="dCampaignForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="col-md-12">
+      <hr>
+      <div class="form-group">
+        <label for="name">Campaign Name</label>
+        <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Name" [ngClass]="{
+  'has-danger': dCampaignForm.controls.name.invalid && dCampaignForm.controls.name.dirty,
+  'has-success': dCampaignForm.controls.name.valid && dCampaignForm.controls.name.dirty
+  }">
+      </div>
+      </div>
+<div class="col-md-6">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" formControlName="email" aria-describedby="emailHelp" placeholder="Enter email" [ngClass]="{
+  'has-danger': dCampaignForm.controls.email.invalid && dCampaignForm.controls.email.dirty,
+  'has-success': dCampaignForm.controls.email.valid && dCampaignForm.controls.email.dirty
+  }">
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+        <label for="website">Website</label>
+        <input type="text" class="form-control" id="website" name="website" formControlName="website" placeholder="Website" [ngClass]="{
+  'has-danger': dCampaignForm.controls.website.invalid && dCampaignForm.controls.website.dirty,
+  'has-success': dCampaignForm.controls.website.valid && dCampaignForm.controls.website.dirty
+  }">
+      </div>
+      </div>
+      <div class="col-md-6">
+      <div class="form-group">
+        <label for="address">Donation address</label>
+        <select class="custom-select mr-sm-2" formControlName="address" id="address" name="address">
+          <option *ngFor="let address of addressesWithBalance" value="{{address.address}}">{{address.address}}</option>
+        </select>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="image">Campaign image</label>
+          <input type="file" class="form-control-file" id="image" (change)="onFileChange($event)"  #fileInput/>
+        </div>
+      </div>
+      <p class="create-campaign-description-p">Description</p>
+      <div class="col-md-12">
+        <div class="form-group">
+        <textarea type="text" class="form-control" id="description" name="description" formControlName="description" [ngClass]="{
+  'has-danger': dCampaignForm.controls.description.invalid && dCampaignForm.controls.description.dirty,
+  'has-success': dCampaignForm.controls.description.valid && dCampaignForm.controls.description.dirty
+  }"></textarea>
+      </div>
+      </div>
+      <div class="col-md-6" *ngIf="donationContractType">
+        <div class="form-group">
+          <label for="fundingGoal">Funding goal</label>
+          <input type="number" class="form-control" id="fundingGoal" name="website" formControlName="fundingGoal" placeholder="0" [ngClass]="{
+        'has-danger': dCampaignForm.controls.fundingGoal.invalid && dCampaignForm.controls.fundingGoal.dirty,
+        'has-success': dCampaignForm.controls.fundingGoal.valid && dCampaignForm.controls.fundingGoal.dirty
+        }">
+        </div>
+      </div>
+
+      <div class="col-md-6" *ngIf="donationContractType">
+        <div class="form-group" *ngIf="donationContractType">
+          <label for="timeGoal">Time goal</label>
+          <input type="datetime-local" class="form-control" id="timeGoal" name="website" formControlName="timeGoal" [ngClass]="{
+          'has-danger': dCampaignForm.controls.timeGoal.invalid && dCampaignForm.controls.timeGoal.dirty,
+          'has-success': dCampaignForm.controls.timeGoal.valid && dCampaignForm.controls.timeGoal.dirty
+          }">
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!dCampaignForm.valid"><i class="fa fa-send"></i> Create campaign</button>
+      </div>
+    </form>
+  </div>
+
+
+
+

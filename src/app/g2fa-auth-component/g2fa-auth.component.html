@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Two Factor Authentication
+      </div>
+      <div class="card-body">
+
+        <div class="alert alert-success" role="alert" *ngIf="authSuccessful">
+          <i class="fa fa-id-card" aria-hidden="true"></i> Authentication successful
+        </div>
+
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form-group">
+            <label for="email">Authentication number</label>
+            <input type="text" class="form-control" id="email" name="code" formControlName="code" placeholder="123456" [ngClass]="{
+  'has-danger': authForm.controls.code.invalid && authForm.controls.code.dirty,
+  'has-success': authForm.controls.code.valid && authForm.controls.code.dirty
+  }">
+          </div>
+          <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user"></i> Authenticate</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

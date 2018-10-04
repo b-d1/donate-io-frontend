@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row donate-logo-row">
+    <div class="col-xs-12 text-center">
+      <h3><a [routerLink]="['/']">DonateIO</a></h3>
+    </div>
+  </div>
+  <div *ngIf="loginScreen">
+    <div class="row">
+      <app-login-component (onLogin) = "onLogin($event)"></app-login-component>
+    </div>
+    <div class="row text-center">
+      or
+    </div>
+    <div class="row text-center">
+      <button class="btn btn-success" (click)="changeToRegister()"><i class="fa fa-id-card"></i> Register</button>
+    </div>
+  </div>
+
+  <div *ngIf="registerScreen">
+    <div class="row">
+      <app-register-component (onRegister) = "onRegister($event)"></app-register-component>
+    </div>
+    <div class="row text-center">
+      or
+    </div>
+    <div class="row text-center">
+      <button class="btn btn-success" (click)="changeToLogin()"><i class="fa fa-sign-in"></i> Login</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="g2faScreen">
+    <app-g2fa-auth-component (onAuth) = "onAuth($event)" [user]="user"></app-g2fa-auth-component>
+  </div>
+
+  <div class="row" *ngIf="setupGFAScreen">
+    <app-register-successful [user]="user" (onAuth) = "onAuth($event)"></app-register-successful>
+  </div>
+
+  <div class="row" *ngIf="loggedInScreen">
+    <app-main-page></app-main-page>
+  </div>
+
+</div>

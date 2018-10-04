@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="transactionSuccessful">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-check-circle" aria-hidden="true"></i> Donation successful! Transaction id: {{txId}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="transactionError">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Donation unsuccessful! Please try again.
+      </div>
+    </div>
+  </div>
+
+<div class="row mb-5">
+  <div class="col-md-6 mb-5">
+    <img class="img-center" src="{{donationCampaign.image}}" alt="Photo of the institution">
+    <hr>
+    <div class="card mb-3">
+      <div class="card-header"><strong><i class="fa fa-info"></i> Details</strong></div>
+      <div class="card-body">
+        <p><strong>Campaign name</strong>: {{donationCampaign.name}}</p>
+        <p><strong>Email</strong>: {{donationCampaign.email}}</p>
+        <p><strong>Website</strong>: <a href="{{donationCampaign.website}}">{{donationCampaign.website}}</a></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><strong><i class="fa fa-align-justify"></i> Description</strong></div>
+      <div class="card-body">
+        {{donationCampaign.description}}
+      </div>
+    </div>
+    <!--<p><strong>Number of donations</strong>: {{institution.numDonations}}</p>-->
+    <!--<p><strong>Total collected in donations</strong>: {{ donationCampaign.totalCollected}}</p>-->
+  </div>
+  <div class="col-md-6">
+    <h4 class="text-md-center"><i class="fa fa-gift"></i> Make donation</h4>
+    <hr>
+    <form [formGroup]="donateForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-group">
+        <label for="addressFrom">Address from:</label>
+        <select class="custom-select mr-sm-2" formControlName="addressFrom" id="addressFrom" name="addressFrom">
+          <option *ngFor="let address of addressesWithBalance" value="{{address.address}}">{{address.address}}</option>
+        </select>
+        <small id="addressfROMHelp" class="form-text text-muted">Address balance: {{utilsService.findAddressBalance(donateForm.controls.addressFrom.value)}} ETH</small>
+      </div>
+      <div class="form-group">
+        <label for="amount">Donation amount:</label>
+        <input type="text" class="form-control" id="amount" name="amount" formControlName="amount" placeholder="0.001">
+      </div>
+      <div class="form-group">
+        <label for="amount">Description:</label>
+        <input type="text" class="form-control" id="description" name="description" formControlName="description" placeholder="short memo">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block"  (click)="open($event, content)"><i class="fa fa-send"></i> Donate</button>
+    </form>
+
+  </div>
+</div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Donation confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<div class="modal-body">
+  <p>Donate <strong>{{donateForm.controls.amount.value}}</strong> to <strong>{{donationCampaign.name}}</strong> from address: <strong>{{donateForm.controls.addressFrom.value}}</strong>?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="checkTransactionDetails(donateForm.controls.addressFrom.value, donationCampaign.address, donateForm.controls.amount.value, donateForm.controls.description.value)">Donate</button>
+  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancel</button>
+</div>
+</ng-template>

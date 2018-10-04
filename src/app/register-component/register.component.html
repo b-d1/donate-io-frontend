@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-6 offset-md-3">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i> Register
+      </div>
+      <div class="card-body">
+
+        <div class="alert alert-success" role="alert" *ngIf="registerSuccessful">
+          <i class="fa fa-check-circle" aria-hidden="true"></i> Register successful
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="registerError">
+          <i class="fa fa-exclamation-circle"></i> {{errorMessage}}
+        </div>
+
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="form-group">
+            <label for="name">Full name</label>
+            <input type="text" class="form-control" id="name" name="name" formControlName="name"
+                   placeholder="Enter your full name" [ngClass]="{
+  'has-danger': registerForm.controls.name.invalid && registerForm.controls.name.dirty,
+  'has-success': registerForm.controls.name.valid && registerForm.controls.name.dirty
+  }">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" formControlName="email"
+                   placeholder="Enter your email"
+                   [ngClass]="{
+  'has-danger': registerForm.controls.email.invalid && registerForm.controls.email.dirty,
+  'has-success': registerForm.controls.email.valid && registerForm.controls.email.dirty
+  }">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password"
+                   placeholder="Password"                [ngClass]="{
+  'has-danger': registerForm.controls.password.invalid && registerForm.controls.password.dirty,
+  'has-success': registerForm.controls.password.valid && registerForm.controls.password.dirty
+  }">
+          </div>
+          <div class="form-group">
+            <label for="confPassword">Confirm Password</label>
+            <input type="password" class="form-control" id="confPassword" name="confPassword"
+                   formControlName="confPassword" placeholder="Password" [ngClass]="{
+  'has-danger': registerForm.controls.confPassword.invalid && registerForm.controls.confPassword.dirty,
+  'has-success': registerForm.controls.confPassword.valid && registerForm.controls.confPassword.dirty
+  }">
+          </div>
+          <div class="form-group">
+            <label for="userType">User type</label>
+            <select class="form-control" id="userType" name="userType" formControlName="userType">
+              <option value="donor" selected="selected">Donor</option>
+              <option value="institution">Institution</option>
+            </select>
+          </div>
+
+
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.valid"><i class="fa fa-unlock"></i> Register</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-6 offset-md-3">
+
+    <div class="alert alert-success" role="alert">
+      <i class="fa fa-check-circle" aria-hidden="true"></i> Register successful, please activate Google Two-Factor authentication to continue.
+    </div>
+  </div>
+  <div class="col-6 offset-md-3 text-md-center">
+    <img src="{{qrCodePhoto}}" alt="" *ngIf="qrCodePhoto">
+
+
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-group">
+      <label for="email">Authentication number</label>
+      <input type="text" class="form-control" id="email" name="number" formControlName="code" placeholder="Enter auth code">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user"></i> Authenticate</button>
+  </form>
+  </div>
+</div>

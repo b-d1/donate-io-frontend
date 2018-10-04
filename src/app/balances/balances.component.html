@@ -1,0 +1,55 @@
+<h6 class="mt-4 mb-4 text-center">
+  <span class="total-eth"> ETH: {{totalETH}}</span>
+  <span class="total-usd"> USD: {{totalUSD}}</span>
+  <span class="eth-price"> ETH Price: {{ethereumPrice}} USD</span></h6>
+
+<table class="table">
+  <thead class="thead-light">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Address</th>
+    <th scope="col">Scan address</th>
+    <th scope="col">Balance ETH</th>
+    <th scope="col">Balance USD</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let address of addressBalances">
+    <th scope="row">{{getIndexOfAddress(address) + 1}}</th>
+    <td>{{address.address}}</td>
+    <td><a class="btn btn-outline-warning" (click)="open(address, content1)"> Scan address</a></td>
+    <td>{{address.balance}}</td>
+    <td>{{address.balanceUSD}}</td>
+  </tr>
+  </tbody>
+</table>
+
+
+<ng-template #content1 let-c="close" let-d="dismiss">
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa fa-qrcode"></i> Scan address</h4>
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="text-center">
+    <img src="{{addressQRCode}}" alt="" class="address-qr-code">
+  </div>
+  <div class="text-center mt-4">
+    <p><b>Address</b>: {{selectedAddress.address}}</p>
+  </div>
+
+  <!--<div class="text-center">-->
+    <!--<img src="{{privateKeyQRCode}}" alt="" class="address-qr-code">-->
+  <!--</div>-->
+  <!--<div class="text-center mt-4">-->
+    <!--<p><b>Private key</b>: {{privateKey}}</p>-->
+  <!--</div>-->
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+</div>
+</ng-template>
+

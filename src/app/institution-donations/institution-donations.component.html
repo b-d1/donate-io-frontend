@@ -1,0 +1,66 @@
+<h4 class="mt-4 mb-4 text-center"><i class="fa fa-history" aria-hidden="true"></i> Donation campaigns</h4>
+
+<div class="row institution-donation-row">
+  <div class="col col-md-3" *ngFor="let donationCampaign of donationCampaigns">
+    <div class="card institution-donations">
+    <div class="card-body">
+      <h5 class="mb-2">{{donationCampaign.name}}</h5>
+      <h6 class="card-subtitle text-muted mb-2"><a href="{{donationCampaign.website}}" class="link-muted"><i class="fa fa-external-link" aria-hidden="true"></i>
+         Visit website</a></h6>
+      <h6>
+        <span *ngIf="donationCampaign.fundingGoal" class="badge badge-primary">Contract</span>
+        <span *ngIf="!donationCampaign.fundingGoal" class="badge badge-secondary">Non-Contract</span>
+      </h6>
+      <p class="card-text mb-2"><strong>Collected:</strong> {{utilsService.getEtherFromWei(donationCampaign.totalReceived)}} ETH</p>
+      <button class="btn btn-info btn-sm" (click)="selectDonationCampaign(donationCampaign)" *ngIf="donationCampaign.donations.length > 0"><i class="fa fa-gift"></i> Donations</button>
+      <p class="card-text" *ngIf="donationCampaign.donations.length === 0"><strong>No donations yet <i class="fa fa-frown-o" aria-hidden="true"></i></strong></p>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="mt-5" *ngIf="currentDonationCampaign">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Donation ID</th>
+        <th scope="col">Donation campaign</th>
+        <th scope="col">Description</th>
+        <th scope="col">Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let donation of currentDonationCampaign.donations; let i = index">
+        <th scope="row">{{i}}</th>
+        <td>{{donation.transactionId}}</td>
+        <td>{{donation.donationCampaignName}}</td>
+        <td>{{donation.description}}</td>
+        <td><button class="btn btn-info btn-sm" (click)="displayDonationDetails(content, donation)"><i class="fa fa-info" aria-hidden="true"></i> Details</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Donation information</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body donation-modal-body">
+    <p><strong>Donation ID</strong>: <a href="https://ropsten.etherscan.io/tx/{{currentDonation.transactionId}}" target="_blank">{{currentDonation.transactionId}}</a></p>
+    <p><strong>Donation campaign</strong>: {{currentDonation.donationCampaignName}}</p>
+    <p><strong>Address from</strong>: <a href="https://ropsten.etherscan.io/address/{{currentDonation.addressFrom}}" target="_blank">{{currentDonation.addressFrom}}</a></p>
+    <p><strong>Address to</strong>: <a href="https://ropsten.etherscan.io/address/{{currentDonation.addressTo}}" target="_blank">{{currentDonation.addressTo}}</a></p>
+    <p><strong>Created on</strong>: {{currentDonation.createdOn}}</p>
+    <p><strong>Amount</strong>: {{utilsService.getEtherFromWei(currentDonation.amount)}} ETH</p>
+    <p><strong>Fee</strong>: {{utilsService.getEtherFromWei(currentDonation.fee)}} ETH</p>
+    <p *ngIf="currentDonation.description && currentDonation.description !== ''"><strong>Description</strong>: {{currentDonation.description}}</p>
+  </div>
+</ng-template>

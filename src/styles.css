@@ -1,0 +1,151 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import '~font-awesome/css/font-awesome.css';
+
+.row {
+  display:block !important;
+}
+
+.col {
+  display:inline-block !important;
+}
+
+.col-md-6 {
+  display:inline-block;
+  float:left;
+}
+
+.donate-logo-row {
+  padding-top:30px;
+  padding-bottom:30px;
+}
+
+.img-center {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  width:100%;
+}
+
+.has-danger {
+  border:1px solid red;
+}
+
+.has-success {
+  border: 1px solid green;
+}
+
+@media (min-width: 800px) {
+  .modal-dialog {
+    max-width: 730px !important;
+  }
+}
+
+.donation-modal-body p {
+  margin-bottom:2px;
+  word-break:break-all;
+}
+
+.donation-modal-body:last-child {
+  margin-bottom:10px;
+}
+
+.institution-donation-row {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.institution-donation-row > .col-md-3 {
+  display: inline-block;
+  float: none;
+  white-space: normal;
+  margin-bottom:20px;
+}
+
+
+.link-muted {
+  color: inherit !important;
+}
+
+.donation-campaign-card {
+  margin-top: 30px;
+}
+
+.main-menu {
+  background-color: #f5f4f4;
+  text-transform: uppercase;
+  /* font-weight: bold; */
+  font-size: 15px;
+}
+
+.main-menu-hr {
+  margin-top: 0 !important;
+}
+
+.main-menu .nav-item .nav-link{
+  padding: 20px 30px;
+}
+
+.main-menu .nav-item:hover {
+  background-color:#eaeaea;
+}
+
+
+.main-menu .nav-item a {
+  color: #717273;
+}
+
+a {
+  color: #17a2b8;
+}
+
+.active {
+  background-color:#eaeaea;
+  color:#17a2b8 !important;
+  font-weight: bold;
+}
+
+.total-eth, .total-donations {
+  padding: 10px 10px;
+  color: white;
+  background-color: #3d9ec3;
+}
+
+.total-usd {
+  padding: 10px 10px;
+  color: white;
+  background-color: #e6bb3a;
+  margin-left:20px;
+  margin-right:20px;
+}
+
+.eth-price {
+  padding: 10px 10px;
+  color: white;
+  background-color: #58c33d;
+}
+
+.card, .btn {
+  border-radius: 0;
+}
+
+.btn-primary {
+  background-color: #0d6fd8 !important;
+}
+
+.contract-badge {
+  font-size:60%;
+}
+
+.card-img-top {
+  border-bottom: 1px solid rgba(0,0,0, 0.125);
+}
+
+.institution-donations {
+  height:180px;
+}
+
+.create-campaign-description-p {
+  width:50%;
+  padding-left:15px;
+}

@@ -1,0 +1,23 @@
+<div *ngIf="isUser && donationCampaigns && donationCampaigns.length > 0">
+  <div class="row mb-5">
+    <div class="col col-md-4 donation-campaign-card" *ngFor="let doncmp of donationCampaigns">
+      <div class="card">
+        <img class="card-img-top" src="{{doncmp.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fa fa-university" aria-hidden="true"></i> {{doncmp.name}} <span *ngIf="doncmp.fundingGoal" class="badge badge-primary contract-badge">Contract</span></h5>
+          <p class="card-text">{{shortenText(doncmp.description)}}</p>
+          <a [routerLink]="['/details', doncmp.name]" class="btn btn-primary mr-2"><i class="fa fa-gift"></i> Donate</a>
+          <a href="#" class="btn btn-success"><i class="fa fa-external-link"></i> Visit Website</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="donationCampaigns.length === 0">
+  <div class="row">
+    <div class="col col-md-12 text-center">
+      <h5>No donation campaigns available</h5>
+    </div>
+  </div>
+</div>

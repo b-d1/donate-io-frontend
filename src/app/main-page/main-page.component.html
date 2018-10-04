@@ -1,0 +1,40 @@
+<ul class="nav justify-content-center main-menu">
+  <li class="nav-item menu-nav-item">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/balances']" onclick="addActive(this)"> <i class="fa fa-balance-scale" aria-hidden="true"></i>
+      Balances
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item" *ngIf="userType === userTypes.User">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/userDonations']" onclick="addActive(this)"> <i class="fa fa-gift" aria-hidden="true"></i>
+      Donations
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item" *ngIf="userType === userTypes.Institution">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/institutionDonations']" onclick="addActive(this)"> <i class="fa fa-gift" aria-hidden="true"></i>
+      Donations
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/depositWithdraw']" onclick="addActive(this)"> <i class="fa fa-exchange" aria-hidden="true"></i>
+      Deposit/Withdraw
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/settings']" onclick="addActive(this)"> <i class="fa fa-cog" aria-hidden="true"></i>
+      Settings
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item" *ngIf="userType === userTypes.Institution">
+    <a class="nav-link menu-nav-item-link" [routerLink]="['/createDonationCampaign']" onclick="addActive(this)"> <i class="fa fa-plus-square" aria-hidden="true"></i>
+      Create Campaign
+    </a>
+  </li>
+  <li class="nav-item menu-nav-item">
+    <a class="nav-link menu-nav-item-link" (click)="logOut()" href="#"><i class="fa fa-power-off" aria-hidden="true"></i>
+      Logout
+    </a>
+  </li>
+</ul>
+
+<hr class="main-menu-hr">
+<router-outlet></router-outlet>

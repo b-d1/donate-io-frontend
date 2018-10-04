@@ -1,0 +1,102 @@
+<div class="container-fluid">
+
+  <div class="row" *ngIf="transactionSuccessful">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-check-circle" aria-hidden="true"></i> Withdrawal successful! Transaction id: {{txId}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="transactionError">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Withdrawal unsuccessful! Please try again.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="text-md-center"><i class="fa fa-arrow-down" aria-hidden="true"></i> Deposit</h4>
+      <hr>
+      <p>To deposit funds to your account, please send to one of the addresses below, or create a new Address at Settings tab.</p>
+
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Address</th>
+          <th scope="col">QR</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let address of addresses">
+          <th scope="row">{{getIndexOfAddress(address) + 1}}</th>
+          <td>{{address}}</td>
+          <td><button class="btn btn-secondary btn-sm" (click)="openQRCodeDialog(address, content2)"><i class="fa fa-qrcode"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+    <div class="col-md-6">
+      <h4 class="text-md-center"><i class="fa fa-arrow-up" aria-hidden="true"></i> Withdraw</h4>
+      <hr>
+      <form [formGroup]="dwForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="form-group">
+        <label for="addressFrom">Address from:</label>
+        <select class="custom-select mr-sm-2" formControlName="addressFrom" id="addressFrom" name="addressFrom">
+          <option *ngFor="let address of addressesWithBalance" value="{{address.address}}">{{address.address}}</option>
+        </select>
+        <small id="addressfROMHelp" class="form-text text-muted">Address balance: {{utilsService.findAddressBalance(dwForm.controls.addressFrom.value)}} ETH</small>
+    </div>
+
+        <div class="form-group">
+          <label for="addressTo">Address to:</label>
+          <input type="text" class="form-control" formControlName="addressTo" id="addressTo" name="addressTo" />
+          <small id="addressToHelp" class="form-text text-muted">Please enter the address to withdraw to.</small>
+        </div>
+        <div class="form-group">
+          <label for="amount">Withdraw amount:</label>
+          <input type="number" class="form-control" id="amount" name="amount" formControlName="amount" placeholder="0.001">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"  (click)="open(content)" [disabled]="!dwForm.valid"><i class="fa fa-send"></i> Withdraw</button>
+      </form>
+
+    </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Withdraw confirmation</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Withdraw <strong>{{dwForm.controls.amount.value}}</strong> to address <strong>{{dwForm.controls.addressTo.value}}</strong> from address: <strong>{{dwForm.controls.addressFrom.value}}</strong>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="checkTransactionDetails(dwForm.controls.addressFrom.value, dwForm.controls.addressTo.value, dwForm.controls.amount.value)">Withdraw</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Address</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <img src="{{addressQRCode}}" alt="" class="address-qr-code">
+    </div>
+    <div class="text-center mt-4">
+      <p><b>Address</b>: {{selectedAddress}}</p>
+    </div>
+  </div>
+</ng-template>
